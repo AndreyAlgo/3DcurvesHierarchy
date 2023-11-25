@@ -9,12 +9,12 @@
 //9: list -> vector
 //10: populate by random values
 //11: sort by STL
+//12: positive { radius a b }
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 
-#include <algorithm>
 #include <boost/shared_ptr.hpp>
 
 class CVector {
@@ -193,29 +193,27 @@ bool cmp_figure( PFigure _a, PFigure _b)
 
 int main(int argc, char **argv)
 {
-  //fclose(stdout);
-
   // populate container in random manner 
   for(i=0;i<1000;i++){
     int _type= (random() *511) % 3;
     //printf("_type=%d\n",_type);
     if(CIRCLE == _type){
       // CIRCLE
-      double _radius= /*abs*/( random() % 1000000 )*0.1;
+      double _radius= 1+ (random() % 1000000 )*0.1;
       CCircle *c=new CCircle(center,_radius);
       figures.push_back(PFigure(c));
     }else if(ELLIPSE == _type){
       //ELLIPSE
       CEllipse *e=new CEllipse(center,
-        (random() % 1000000 ) *0.1,
-        (random() % 1000000 ) *0.1
+        1+ (random() % 1000000 ) *0.1,
+        1+ (random() % 1000000 ) *0.1
       );
       //e->out(" e : ");
       figures.push_back(PFigure(e));      
     }else{
       //HELIX
       CHelix *h=new CHelix(center,
-        (random() % 1000000 ) *0.1,
+        1+ (random() % 1000000 ) *0.1,
         (random() % 1000000 ) *0.1
       );
       figures.push_back(PFigure(h));      
@@ -249,7 +247,7 @@ int main(int argc, char **argv)
     it++;
   }
 
-  printf(" sort\n"); //sleep(10);
+  printf(" sort\n");
   sort(circles.begin(),circles.end(), cmp_figure );
 
   count=0;
